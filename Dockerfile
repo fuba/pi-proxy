@@ -15,4 +15,4 @@ RUN carton install
 
 EXPOSE 5000
 
-CMD ["carton", "exec", "plackup", "-p", "5000", "--no-default-middleware", "-a", "app.psgi"]
+CMD ["carton", "exec", "plackup", "-p", "5000", "-a", "app.psgi"]

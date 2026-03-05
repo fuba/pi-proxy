@@ -32,6 +32,7 @@ builder {
 
         my $result = eval {
             my $path = $env->{PATH_INFO} || '/';
+            warn "pi-proxy: REQUEST $env->{REQUEST_METHOD} $path\n";
 
             # Default to index.html for directory-like paths
             $path .= 'index.html' if $path =~ /\/$/;
