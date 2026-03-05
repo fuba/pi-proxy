@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      S3_BUCKET: "nifuba-s3fs"
+      S3_PREFIX: "www/pi"
+      AWS_REGION: "ap-northeast-1"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
