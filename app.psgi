@@ -14,6 +14,7 @@ my $region = $ENV{AWS_REGION}   || 'ap-northeast-1';
 my $prefix = $ENV{S3_PREFIX}    || 'www/pi';
 
 warn "pi-proxy: bucket=$bucket prefix=$prefix region=$region\n";
+$| = 1; # auto-flush
 
 my $s3 = Amazon::S3::Thin->new({
     credential_provider => 'env',
@@ -33,6 +34,11 @@ builder {
         my $result = eval {
             my $path = $env->{PATH_INFO} || '/';
             warn "pi-proxy: REQUEST $env->{REQUEST_METHOD} $path\n";
+
+            # Debug endpoint
+            if ($path eq '/_ping') {
+                return [200, ['Content-Type' => 'text/plain'], ["OK pid=$$ path=$path"]];
+            }
 
             # Default to index.html for directory-like paths
             $path .= 'index.html' if $path =~ /\/$/;
